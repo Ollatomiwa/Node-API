@@ -1,0 +1,48 @@
+[
+
+    {
+        "id": 0,
+        "name": "The Honest Killer",
+        "duration": 180,
+        "maxGroupSize": 28,
+        "rating": 3.8,
+        "genre": "Thriller",
+        "summary": "Breathaking series withthrilling ending",
+        "imageCover": "",
+        "images": ""
+    },
+    
+    {
+        "id": 1,
+        "name": "Survivor",
+        "duration": 120,
+        "maxGroupSize": 25,
+        "rating": 3.3,
+        "genre": "Action",
+        "summary": "Action Series",
+        "imageCover": "",
+        "images": ""
+    },
+    {
+        "id": 2,
+        "name": "Refugee",
+        "duration": 156,
+        "maxGroupSize": 28,
+        "rating": 3.5,
+        "genre": "Drama",
+        "summary": "Series about two orphans in no mans land",
+        "imageCover": "",
+        "images": ""
+    },
+    {
+        "id": 3,
+        "name": "The Traveller",
+        "duration": 120,
+        "maxGroupSize": 38,
+        "rating": 3.6,
+        "genre": "Thriller",
+        "summary": "Two Tourist gets forgotten in a National Park, Surviving the nights with wild Animals lurking",
+        "imageCover": "",
+        "images": ""
+    }
+]
