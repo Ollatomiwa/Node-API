@@ -5,12 +5,18 @@ const app = express();
 
 app.use(express.json());
 
+app.use ((req, res, next) => {
+    req.requestTime = new Date () .toISOString();
+    next ();
+});
 
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev_data/data/tours-simple.json`))
 
 const getTour = (req, res) => {
+    console.log(req.requestTime);
     res.status(200).json({
         status: 'success',
+        requestedAt: req.requestTime, // this returns the date and time a the response was sent.
         results: tours.length,
         data: {
             tours,
