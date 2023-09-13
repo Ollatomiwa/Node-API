@@ -1,6 +1,6 @@
 const fs = require ('fs');
 
-const tours = JSON.parse(fs.readFileSync(`${__dirname}/../dev_data/data/tours-simple.json`));
+const tours = JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`));
 
 exports.checkId = (req, res, next, val) => { //we use param here for not repeating codes
     console.log(`Tour id is: ${val}`);
