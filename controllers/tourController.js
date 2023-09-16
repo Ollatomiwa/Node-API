@@ -29,30 +29,52 @@ const Tour = require('./../models/tourModel');
 //     next();
 // }
 
-exports.getTour = (req, res) => {
-    console.log(req.requestTime);
-    res.status(200).json({
-        status: 'success',
-        requestedAt: req.requestTime, // this returns the date and time a the response was sent.
-        // results: tours.length,
-        // data: {
-        //     tours,
-        // },
-    });
+exports.getTour = async (req, res) => {
+    try {
+        //in order to get/query all the tours/docs from the database, we use find(), it is a model
+        const tours = await Tour.find()
+        // console.log(req.requestTime);
+        res.status(200).json({
+            status: 'success',
+            //requestedAt: req.requestTime, // this returns the date and time a the response was sent.
+            results: tours.length,
+            data: {
+                tours,
+            },
+        });
+        
+    } catch (error) {
+        res.status(404).json({
+            status: 'fail',
+            message: error
+        });
+        
+    }
 
 };
 
-exports.getTourId = (req, res) => {
-
-    const id = req.params.id * 1;
-    // const tour = tours.find(el => el.id === id);
-    // res.status(200).json({
-    //     status: 'success',
+exports.getTourId = async (req, res) => {
+    try {
+        //here we have findbyid, we also have findone to find only one documents
+     const tour = await  Tour.findById(req.params.id)
+     //Tour.findOne ({_id: req.params.id}) this will give the results as the one above
+    //   const tour = tours.find(el => el.id === id);
+      res.status(200).json({
+          status: 'success',
+          
+          data: {
+              tour,
+          },
+      });
+    } catch (error) {
+        res.status(404).json({
+            status: 'fail',
+            message: error
+        });
         
-    //     data: {
-    //         tour,
-    //     },
-    // });
+    }
+
+    // const id = req.params.id * 1;
 
 };
 
@@ -76,28 +98,50 @@ exports.createTour = async (req, res) => {
         res.status(400)
          .json({
             status: 'fail',
-            message:"ivalid"
+            message:"invalid"
          })
     }
 
 };
 
-exports.updateTour = (req, res) => {
-    res.status(200).json({
-        status: 'success',
+exports.updateTour = async (req, res) => {
+    try {
+        const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
+            new: true, //this way the new updated file will be the one that will be returned
+            runValidators: true
+        })
+        res.status(200).json({
+            status: 'success',
+            
+            data: {
+                tour
+            },
+        });
         
-        data: {
-            tour: '<Update Tours .....>'
-        },
-    });
+    } catch (error) {
+        res.status(404).json({
+            status: 'fail',
+            message: error
+        });
+    }
 
 };
 
-exports.deleteTour = (req, res) => {
-    res.status(204).json({
-        status: 'success',
+exports.deleteTour = async (req, res) => {
+    try {
+       await Tour.findByIdAndDelete(req.params.id )
+        res.status(204).json({
+            status: 'success',
+            
+            data: null
+        });
         
-        data: null
-    });
+    } catch (error) {
+        res.status(404).json({
+            status: 'fail',
+            message: error
+        });
+        
+    }
 
 };
