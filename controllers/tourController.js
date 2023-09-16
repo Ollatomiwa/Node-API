@@ -18,16 +18,16 @@ const Tour = require('./../models/tourModel');
 
 // }; 
 // the below code is for .POST, it  checks if name or price is inputted, if not it bring out the below message.
-exports.checkBody = (req,res,next) => {
-    if (!req.body.name || !req.body.price ) {
-        return res.status(404) . json({
-            status: 'fail',
-            message: 'cannot find name or price'
-        });
+// exports.checkBody = (req,res,next) => {
+//     if (!req.body.name || !req.body.price ) {
+//         return res.status(404) . json({
+//             status: 'fail',
+//             message: 'cannot find name or price'
+//         });
         
-    }
-    next();
-}
+//     }
+//     next();
+// }
 
 exports.getTour = (req, res) => {
     console.log(req.requestTime);
@@ -56,13 +56,30 @@ exports.getTourId = (req, res) => {
 
 };
 
-exports.createTour = (req, res) => {
-    res.status(201) .json({
-        status: 'success!',
-        data: {
-            tour: newTour
-        }
-    });
+exports.createTour = async (req, res) => {
+    try {
+        //LETS CREATE A NEW DOCUMENT
+        // const newTour = new Tour({})
+        // Tour.save() // we can use this method or an easier one below
+    
+        // this is another method to create a new tour document
+        const newTour = await Tour.create(req.body);
+    
+        res.status(201) .json({
+            status: 'success!',
+            data: {
+                tour: newTour
+            }
+        });
+        
+    } catch (error) {   //we use this try/catch so incase we created a documents with some neccesary keys also can be a validator
+        res.status(400)
+         .json({
+            status: 'fail',
+            message:"ivalid"
+         })
+    }
+
 };
 
 exports.updateTour = (req, res) => {
