@@ -31,8 +31,31 @@ const Tour = require('./../models/tourModel');
 
 exports.getTour = async (req, res) => {
     try {
-        //in order to get/query all the tours/docs from the database, we use find(), it is a model
-        const tours = await Tour.find()
+        //BUILDING QUERIES
+        //1) FILTERING
+        const queryObj = {...req.query};
+        const excludedFields = ['page','sort', 'limit', 'fields'];
+        excludedFields.forEach(el =>delete queryObj[el]);
+
+        //2) ADVANCE FILTERING
+        let queryStr = JSON.stringify(queryObj);
+        queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+        console.log(JSON.parse(queryStr));
+
+
+        const query = Tour.find(SON.parse(queryStr));
+
+        //the second way 
+        // const tours = await Tour.find()
+        // .where('duration')
+        // .equals(5)
+        // .where('difficulty')
+        // .equals('easy');
+
+        //EXECUTE QUERY
+        const tours = await query;
+
+        //send response
         // console.log(req.requestTime);
         res.status(200).json({
             status: 'success',

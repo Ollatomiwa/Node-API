@@ -58,7 +58,7 @@ const tourSchema = new mongoose.Schema({
         type: Date,
         default: Date.now() //this will give our created image with a timestamp, mongo will convert it to created date
     },
-    startDates: [Date],
+    startDates: [Date]
 });
     
     const Tour = mongoose.model('Tour', tourSchema); //we used capital Tour so we know we are dealing with a model
