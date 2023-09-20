@@ -56,7 +56,8 @@ const tourSchema = new mongoose.Schema({
     images: [String],
     createdAt: {
         type: Date,
-        default: Date.now() //this will give our created image with a timestamp, mongo will convert it to created date
+        default: Date.now(), //this will give our created image with a timestamp, mongo will convert it to created date
+        select: false   // this will hide the time it was created to the user due to it being sensitive information
     },
     startDates: [Date]
 });
